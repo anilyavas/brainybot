@@ -1,7 +1,6 @@
-import { Link, Tabs } from 'expo-router';
+import { Tabs } from 'expo-router';
 
-import { HeaderButton } from '../../components/HeaderButton';
-import { TabBarIcon } from '../../components/TabBarIcon';
+import { MaterialIcons } from '@expo/vector-icons';
 
 export default function TabLayout() {
   return (
@@ -12,20 +11,22 @@ export default function TabLayout() {
       <Tabs.Screen
         name="index"
         options={{
-          title: 'Tab One',
-          tabBarIcon: ({ color }) => <TabBarIcon name="code" color={color} />,
-          headerRight: () => (
-            <Link href="/modal" asChild>
-              <HeaderButton />
-            </Link>
-          ),
+          title: 'Home',
+          tabBarIcon: ({ color }) => <MaterialIcons name="home" color={color} size={24} />,
         }}
       />
       <Tabs.Screen
-        name="two"
+        name="flashcards"
         options={{
-          title: 'Tab Two',
-          tabBarIcon: ({ color }) => <TabBarIcon name="code" color={color} />,
+          title: 'Flashcards',
+          tabBarIcon: ({ color }) => <MaterialIcons name="style" color={color} size={24} />,
+        }}
+      />
+      <Tabs.Screen
+        name="chat"
+        options={{
+          title: 'AI Tutor',
+          tabBarIcon: ({ color }) => <MaterialIcons name="chat" color={color} size={24} />,
         }}
       />
     </Tabs>

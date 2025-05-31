@@ -1,7 +1,14 @@
 import { initializeApp } from 'firebase/app';
 
-import { getAuth } from 'firebase/auth';
+import { initializeAuth, getReactNativePersistence } from 'firebase/auth';
 import { getFirestore } from 'firebase/firestore';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+
+if (!process.env.EXPO_PUBLIC_FIREBASE_API_KEY) {
+  throw new Error(
+    'Firebase API key is not defined. Please set the EXPO_PUBLIC_FIREBASE_API_KEY environment variable.'
+  );
+}
 
 const firebaseConfig = {
   apiKey: process.env.EXPO_PUBLIC_FIREBASE_API_KEY,
@@ -14,8 +21,10 @@ const firebaseConfig = {
   measurementId: process.env.EXPO_PUBLIC_FIREBASE_MEASUREMENT_ID,
 };
 
-const firebase = initializeApp(firebaseConfig);
-export const auth = getAuth(firebase);
-export const firestore = getFirestore(firebase);
+const app = initializeApp(firebaseConfig);
 
-export default firebase;
+export const auth = initializeAuth(app, {
+  persistence: getReactNativePersistence(AsyncStorage),
+});
+
+export const firestore = getFirestore(app);
